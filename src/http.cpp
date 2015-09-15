@@ -377,7 +377,7 @@ template<class charT> void Fastcgipp::Http::Environment<charT>::parsePostsMultip
 			case BODY:
 			{
 				const size_t size=minPostBufferSize(sizeof(boundarySize)-1);
-				if(!memcmp(pPostBuffer, boundary.get(), size))
+				if(boundary.get() && !memcmp(pPostBuffer, boundary.get(), size))
 				{
 					bodySize=pPostBuffer-bodyStart-2;
 					if(bodySize<0) bodySize=0;
