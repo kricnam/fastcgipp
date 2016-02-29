@@ -122,8 +122,13 @@ bool Fastcgipp::Transceiver::handler()
 		
 		if( actual == 0 )
 		{
-			fdBuffers.erase( pollFd->fd );
-			pollFds.erase( pollFd );
+			if (pollFd->fd != socket)
+			{
+				fdBuffers.erase( pollFd->fd );
+				pollFds.erase( pollFd );
+			}
+			else
+				freeFd(fd);	
 			return false;
 		}
 
